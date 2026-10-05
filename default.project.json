@@ -1,49 +1,42 @@
 {
-  "name": "Shatterbound",
+  "name": "Tiny Town",
   "servePort": 34872,
   "tree": {
     "$className": "DataModel",
-
+    "Workspace": {
+      "$className": "Workspace",
+      "$ignoreUnknownInstances": true,
+      "TinyTown": { "$path": "src/Workspace/TinyTown.rbxmx" }
+    },
+    "Lighting": {
+      "$className": "Lighting",
+      "$properties": {
+        "ClockTime": 14.5,
+        "Brightness": 2.4,
+        "Ambient": [0.55, 0.61, 0.65],
+        "OutdoorAmbient": [0.65, 0.70, 0.73],
+        "GlobalShadows": true,
+        "EnvironmentDiffuseScale": 1,
+        "EnvironmentSpecularScale": 0.4
+      }
+    },
     "ReplicatedStorage": {
       "$className": "ReplicatedStorage",
       "$path": "src/ReplicatedStorage",
       "$ignoreUnknownInstances": true
     },
-
     "ServerScriptService": {
       "$className": "ServerScriptService",
       "$path": "src/ServerScriptService",
       "$ignoreUnknownInstances": true
     },
-
-    "ServerStorage": {
-      "$className": "ServerStorage",
-      "$path": "src/ServerStorage",
-      "$ignoreUnknownInstances": true
-    },
-
-    "StarterGui": {
-      "$className": "StarterGui",
-      "$path": "src/StarterGui",
-      "$ignoreUnknownInstances": true
-    },
-
     "StarterPlayer": {
       "$className": "StarterPlayer",
       "$ignoreUnknownInstances": true,
-      "$properties": {
-        "EnableMouseLockOption": true
-      },
-
+      "$properties": { "EnableMouseLockOption": false },
       "StarterPlayerScripts": {
         "$className": "StarterPlayerScripts",
         "$path": "src/StarterPlayer/StarterPlayerScripts",
-        "$ignoreUnknownInstances": true
-      },
-
-      "StarterCharacterScripts": {
-        "$className": "StarterCharacterScripts",
-        "$path": "src/StarterPlayer/StarterCharacterScripts",
         "$ignoreUnknownInstances": true
       }
     }
