@@ -4,7 +4,7 @@ local DataStoreService = game:GetService("DataStoreService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Config = require(Shared:WaitForChild("GameConfig"))
-local QuestConfig = require(Shared:WaitForChild("QuestConfig"))
+local QuestConfig = require(Shared:WaitForChild("QuestConfig"))\nlocal CharacterCatalog = require(Shared:WaitForChild("CharacterCatalog"))
 
 local Service = {}
 local STORE = DataStoreService:GetDataStore("ShatterboundProfiles_v1")
@@ -140,6 +140,19 @@ function Service:SelectCharacter(player,id)
 	player:SetAttribute("SelectedCharacter",id)
 	self:Push(player)
 	return true
+end
+
+function Service:PurchaseCharacter(player,id)
+	local p=profiles[player]
+	local info=type(id)=="string" and CharacterCatalog[id] or nil
+	if not p or not info then return false,"Unknown fighter" end
+	if p.Character.Owned[id] then return false,"Already owned" end
+	local price=math.max(0,tonumber(info.Price) or 0)
+	if p.Economy.Coins<price then return false,"Not enough coins" end
+	p.Economy.Coins-=price
+	p.Character.Owned[id]=true
+	self:Push(player)
+	return true,("Unlocked %s"):format(info.DisplayName or id)
 end
 
 function Service:Save(player)
