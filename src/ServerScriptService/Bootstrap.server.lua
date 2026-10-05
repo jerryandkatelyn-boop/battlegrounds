@@ -32,6 +32,8 @@ for _,p in ipairs(Players:GetPlayers()) do configurePlayer(p) end
 LeaderboardService:Start(arena)
 ProfileService:Init(remotes.State)
 ProfileService:Start()
+MonetizationService:Init(ProfileService)
+MonetizationService:Start()
 CombatService:Init(ProfileService,ArenaService,LeaderboardService,remotes)
 CombatService:Start()
 
