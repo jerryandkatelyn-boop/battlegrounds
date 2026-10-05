@@ -27,7 +27,7 @@ local function dummy(parent,pos,index)
 	root.Anchored=true torso.Anchored=true head.Anchored=true
 	local h=Instance.new("Humanoid") h.MaxHealth=500 h.Health=500 h.DisplayName="Training Dummy" h.Parent=m
 	m.PrimaryPart=root
-	h.Died:Connect(function() task.delay(2,function() if m.Parent then h.Health=h.MaxHealth end end) end)
+	h.Died:Connect(function()\n\t\ttask.delay(2,function()\n\t\t\tif m.Parent then\n\t\t\t\tlocal holder=m.Parent\n\t\t\t\tm:Destroy()\n\t\t\t\tdummy(holder,pos,index)\n\t\t\tend\n\t\tend)\n\tend)
 end
 
 function Service:IsSafePosition(pos)
