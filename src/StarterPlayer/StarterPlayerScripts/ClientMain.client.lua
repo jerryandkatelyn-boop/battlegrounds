@@ -4,10 +4,10 @@ local ReplicatedStorage=game:GetService("ReplicatedStorage")
 local ContextActionService=game:GetService("ContextActionService")
 local UserInputService=game:GetService("UserInputService")
 local RunService=game:GetService("RunService")
-local TweenService=game:GetService("TweenService")
+local TweenService=game:GetService("TweenService")\nlocal MarketplaceService=game:GetService("MarketplaceService")
 
 local player=Players.LocalPlayer
-local Config=require(ReplicatedStorage.Shared.GameConfig)
+local Config=require(ReplicatedStorage.Shared.GameConfig)\nlocal MonetizationConfig=require(ReplicatedStorage.Shared.MonetizationConfig)
 local remotes=ReplicatedStorage:WaitForChild(Config.RemoteFolderName)
 local Action=remotes:WaitForChild("Action")
 local State=remotes:WaitForChild("State")
@@ -75,6 +75,22 @@ hud=HUD.new({
 	SelectCharacter=function(id) Meta:FireServer("SelectCharacter",id) end,
 	Settings=function(s) Effects:SetSettings(s) end,
 	Private=function(command,value) Private:FireServer(command,value) end,
+	PurchaseProduct=function(key)
+		local item=MonetizationConfig.Products[key]
+		if item and item.Id and item.Id>0 then
+			MarketplaceService:PromptProductPurchase(player,item.Id)
+		elseif hud then
+			hud:Toast("Create this developer product and add its ID in MonetizationConfig.lua",false)
+		end
+	end,
+	PurchasePass=function(key)
+		local item=MonetizationConfig.Passes[key]
+		if item and item.Id and item.Id>0 then
+			MarketplaceService:PromptGamePassPurchase(player,item.Id)
+		elseif hud then
+			hud:Toast("Create this pass and add its ID in MonetizationConfig.lua",false)
+		end
+	end,
 	Emote=function(name)
 		if currentHumanoid then pcall(function() currentHumanoid:PlayEmote(name) end) end
 	end,
