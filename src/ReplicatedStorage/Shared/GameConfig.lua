@@ -1,0 +1,26 @@
+--!strict
+local Config = {
+	GameName = "Shatterbound",
+	Version = "0.1.0",
+	DefaultCharacter = "Kairo",
+	MaxPlayers = 12,
+	BaseHealth = 100,
+	WalkSpeed = 18,
+	BlockWalkSpeed = 8,
+	JumpPower = 50,
+	RegenDelay = 6,
+	RegenPerSecond = 4,
+	SpawnProtection = 2.5,
+	M1ResetWindow = 1.25,
+	M1Windup = 0.08,
+	M1Interval = 0.27,
+	BlockFrontDot = 0.20,
+	UltimateMax = 100,
+	UltimateGainPerDamage = 0.72,
+	SafeZone = {Center = Vector3.new(0, 9, -164), Size = Vector3.new(70, 28, 54)},
+	Arena = {Center = Vector3.new(0, 0, 0), HalfSize = 112, FloorY = 0, KillY = -35},
+	Rewards = {KillCoins = 30, KillXP = 120, DamageXPScale = 0.20},
+	RemoteFolderName = "ShatterboundRemotes",
+	RateLimits = {M1 = 0.20, Block = 0.06, Ability = 0.10, Ultimate = 0.20, Meta = 0.30, Private = 0.25},
+}
+return Config
