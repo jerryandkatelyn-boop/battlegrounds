@@ -313,6 +313,9 @@ function Service:SetupCharacter(player,character)
 				local kp=ProfileService:Get(killer)
 				if kp then LeaderboardService:UpdatePlayer(killer,kp.Stats.Kills) end
 				FXRemote:FireAllClients("Kill",killer,player,streak)
+				if streak==5 or streak==10 or (streak>=20 and streak%10==0) then
+					FXRemote:FireAllClients("Announcement",("%s IS ON A %d KO STREAK"):format(string.upper(killer.DisplayName),streak))
+				end
 			end
 		end
 	end)
