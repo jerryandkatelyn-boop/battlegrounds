@@ -4,7 +4,8 @@ local DataStoreService = game:GetService("DataStoreService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Config = require(Shared:WaitForChild("GameConfig"))
-local QuestConfig = require(Shared:WaitForChild("QuestConfig"))\nlocal CharacterCatalog = require(Shared:WaitForChild("CharacterCatalog"))
+local QuestConfig = require(Shared:WaitForChild("QuestConfig"))
+local CharacterCatalog = require(Shared:WaitForChild("CharacterCatalog"))
 
 local Service = {}
 local STORE = DataStoreService:GetDataStore("ShatterboundProfiles_v1")
