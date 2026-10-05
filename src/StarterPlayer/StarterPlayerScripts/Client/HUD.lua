@@ -107,16 +107,16 @@ function HUD:BuildMenu()
 	local panel=Instance.new("Frame") panel.Name="Menu" panel.AnchorPoint=Vector2.new(0.5,0.5) panel.Position=UDim2.fromScale(0.5,0.5) panel.Size=UDim2.new(0.82,0,0.72,0)
 	panel.BackgroundColor3=Color3.fromRGB(13,16,25) panel.BackgroundTransparency=0.03 panel.BorderSizePixel=0 panel.Visible=false panel.Parent=gui
 	corner(panel,18) stroke(panel,Color3.fromRGB(80,165,235),2,0.25)
-	local max=Instance.new("UISizeConstraint") max.MaxSize=Vector2.new(900,620) max.MinSize=Vector2.new(540,390) max.Parent=panel
+	local max=Instance.new("UISizeConstraint") max.MaxSize=Vector2.new(900,620) max.MinSize=Vector2.new(360,320) max.Parent=panel
 
 	local title=text(panel,"SHATTERBOUND // FIGHTER HUB",25,Enum.Font.GothamBlack) title.Position=UDim2.fromOffset(24,18) title.Size=UDim2.new(1,-48,0,36) title.TextXAlignment=Enum.TextXAlignment.Left
 	local close=button(panel,"×") close.AnchorPoint=Vector2.new(1,0) close.Position=UDim2.new(1,-18,0,16) close.Size=UDim2.fromOffset(42,38) close.TextSize=24 close.Activated:Connect(function() panel.Visible=false end)
 
-	local tabs={"PROFILE","DAILY","QUESTS","CHARACTER","SETTINGS"}
+	local tabs={"PROFILE","DAILY","QUESTS","CHARACTER","SHOP","SETTINGS"}
 	local bodies={}
 	for i,label in ipairs(tabs) do
-		local b=button(panel,label) b.Position=UDim2.new(0,22,0,70+(i-1)*52) b.Size=UDim2.fromOffset(138,42)
-		local body=Instance.new("Frame") body.Name=label body.Position=UDim2.new(0,180,0,72) body.Size=UDim2.new(1,-202,1,-94) body.BackgroundTransparency=1 body.Visible=i==1 body.Parent=panel bodies[label]=body
+		local b=button(panel,label) b.Position=UDim2.new(0,18,0,70+(i-1)*46) b.Size=UDim2.fromOffset(132,38)
+		local body=Instance.new("Frame") body.Name=label body.Position=UDim2.new(0,166,0,72) body.Size=UDim2.new(1,-188,1,-94) body.BackgroundTransparency=1 body.Visible=i==1 body.Parent=panel bodies[label]=body
 		b.Activated:Connect(function() for _,v in pairs(bodies) do v.Visible=false end body.Visible=true end)
 	end
 	self.Menu=panel self.Bodies=bodies
@@ -135,6 +135,23 @@ function HUD:BuildMenu()
 	local charTitle=text(bodies.CHARACTER,"KAIRO // THE IMPACT HEIR",28,Enum.Font.GothamBlack) charTitle.Size=UDim2.new(1,0,0,50) charTitle.TextXAlignment=Enum.TextXAlignment.Left
 	local charDesc=text(bodies.CHARACTER,Catalog.Kairo.Description.."\n\nStarter Fighter • Close Range • Kinetic Impact",18,Enum.Font.GothamBold) charDesc.Position=UDim2.fromOffset(0,62) charDesc.Size=UDim2.new(1,0,0,150) charDesc.TextXAlignment=Enum.TextXAlignment.Left charDesc.TextYAlignment=Enum.TextYAlignment.Top
 	local select=button(bodies.CHARACTER,"EQUIP KAIRO") select.Position=UDim2.fromOffset(0,225) select.Size=UDim2.fromOffset(220,52) select.Activated:Connect(function() self.Callbacks.SelectCharacter("Kairo") end)
+
+	local shopBody=bodies.SHOP
+	local shopTitle=text(shopBody,"COSMETIC / CONVENIENCE SHOP",24,Enum.Font.GothamBlack) shopTitle.Size=UDim2.new(1,0,0,42) shopTitle.TextXAlignment=Enum.TextXAlignment.Left
+	local shopNote=text(shopBody,"No combat power is sold. Robux buttons activate after you configure this experience's IDs.",14,Enum.Font.GothamBold) shopNote.Position=UDim2.fromOffset(0,45) shopNote.Size=UDim2.new(1,0,0,55) shopNote.TextXAlignment=Enum.TextXAlignment.Left
+	local offers={
+		{"500 COINS","Coins500","Product"},
+		{"1,700 COINS","Coins1700","Product"},
+		{"6,000 COINS","Coins6000","Product"},
+		{"VIP FIGHTER","VIP","Pass"},
+		{"EMOTE PACK","EmotePack","Pass"},
+	}
+	for i,offer in ipairs(offers) do
+		local b=button(shopBody,offer[1]) b.Position=UDim2.fromOffset(((i-1)%2)*180,112+math.floor((i-1)/2)*58) b.Size=UDim2.fromOffset(168,48)
+		b.Activated:Connect(function()
+			if offer[3]=="Product" then self.Callbacks.PurchaseProduct(offer[2]) else self.Callbacks.PurchasePass(offer[2]) end
+		end)
+	end
 
 	local settingsBody=bodies.SETTINGS
 	local y=0
