@@ -1,0 +1,48 @@
+{
+  "name": "Battlegrounds",
+  "servePort": 34872,
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "$path": "src/ReplicatedStorage",
+      "$ignoreUnknownInstances": true
+    },
+
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "$path": "src/ServerScriptService",
+      "$ignoreUnknownInstances": true
+    },
+
+    "ServerStorage": {
+      "$className": "ServerStorage",
+      "$path": "src/ServerStorage",
+      "$ignoreUnknownInstances": true
+    },
+
+    "StarterGui": {
+      "$className": "StarterGui",
+      "$path": "src/StarterGui",
+      "$ignoreUnknownInstances": true
+    },
+
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "$ignoreUnknownInstances": true,
+
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "$path": "src/StarterPlayer/StarterPlayerScripts",
+        "$ignoreUnknownInstances": true
+      },
+
+      "StarterCharacterScripts": {
+        "$className": "StarterCharacterScripts",
+        "$path": "src/StarterPlayer/StarterCharacterScripts",
+        "$ignoreUnknownInstances": true
+      }
+    }
+  }
+}
