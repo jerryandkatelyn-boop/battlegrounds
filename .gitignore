@@ -1,0 +1,13 @@
+# Generated Roblox place files
+*.rbxl
+*.rbxlx
+
+# Rojo generated files
+sourcemap.json
+
+# Logs / OS / editor noise
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
