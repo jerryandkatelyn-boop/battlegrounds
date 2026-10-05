@@ -93,7 +93,15 @@ end
 
 function Effects:Handle(kind,...)
 	local args={...}
-	if kind=="Hit" then
+	if kind=="Swing" then
+		local fighter,combo,variantName,pos=args[1],args[2],args[3],args[4]
+		if settings.VFX and pos then
+			local side=(combo%2==0) and -1 or 1
+			local slash=neonPart(Vector3.new(0.18,3.2,6.5),CFrame.new(pos+Vector3.new(side*1.4,1.2,0))*CFrame.Angles(0,math.rad(side*28),math.rad(side*32)),variantName=="Uppercut" and Color3.fromRGB(190,135,255) or Color3.fromRGB(100,185,255))
+			TweenService:Create(slash,TweenInfo.new(0.13),{Transparency=1,Size=Vector3.new(0.05,4.2,8.2)}):Play()
+			Debris:AddItem(slash,0.16)
+		end
+	elseif kind=="Hit" then
 		local pos,damage,hitType=args[1],args[2],args[3]
 		local heavy=hitType~="Light"
 		burst(pos,heavy and Color3.fromRGB(255,105,95) or Color3.fromRGB(110,190,255),heavy and 5.5 or 3.2)
