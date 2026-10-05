@@ -7,7 +7,8 @@ local services=script.Parent:WaitForChild("Services")
 local ProfileService=require(services.ProfileService)
 local ArenaService=require(services.ArenaService)
 local CombatService=require(services.CombatService)
-local LeaderboardService=require(services.LeaderboardService)\nlocal MonetizationService=require(services.MonetizationService)
+local LeaderboardService=require(services.LeaderboardService)
+local MonetizationService=require(services.MonetizationService)
 
 Players.RespawnTime=3
 
