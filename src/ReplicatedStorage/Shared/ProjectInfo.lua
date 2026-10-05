@@ -1,7 +1,7 @@
--- Shared project metadata.
--- This harmless ModuleScript also confirms that the GitHub -> Rojo sync is working.
-
+--!strict
 return {
-    Name = "Battlegrounds",
-    UsesRojo = true,
+	Name = "Shatterbound",
+	Version = "0.1.0",
+	UsesRojo = true,
+	LaunchFighter = "Kairo",
 }
