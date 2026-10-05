@@ -58,6 +58,13 @@ function HUD.new(callbacks)
 
 	local abilityBar=Instance.new("Frame") abilityBar.Name="AbilityBar" abilityBar.AnchorPoint=Vector2.new(0.5,1) abilityBar.Position=UDim2.new(0.5,0,1,-28)
 	abilityBar.Size=UDim2.fromOffset(590,92) abilityBar.BackgroundTransparency=1 abilityBar.Parent=gui
+	local abilityScale=Instance.new("UIScale") abilityScale.Name="ResponsiveScale" abilityScale.Parent=abilityBar
+	local function updateScale()
+		local viewport=workspace.CurrentCamera and workspace.CurrentCamera.ViewportSize or Vector2.new(1280,720)
+		abilityScale.Scale=math.clamp(viewport.X/900,0.58,1)
+	end
+	updateScale()
+	if workspace.CurrentCamera then workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(updateScale) end
 	self.AbilityButtons={}
 	for i=1,3 do
 		local b=button(abilityBar,"")
@@ -146,6 +153,20 @@ function HUD:BuildMenu()
 		local pTitle=text(settingsBody,"PRIVATE SERVER",18,Enum.Font.GothamBlack) pTitle.Position=UDim2.fromOffset(0,y+10) pTitle.Size=UDim2.fromOffset(300,30) pTitle.TextXAlignment=Enum.TextXAlignment.Left
 		local heal=button(settingsBody,"HEAL ALL") heal.Position=UDim2.fromOffset(0,y+48) heal.Size=UDim2.fromOffset(140,44) heal.Activated:Connect(function() self.Callbacks.Private("HealAll") end)
 		local fill=button(settingsBody,"FILL ULT") fill.Position=UDim2.fromOffset(150,y+48) fill.Size=UDim2.fromOffset(140,44) fill.Activated:Connect(function() self.Callbacks.Private("FillUltimate") end)
+		local noCd=false
+		local cooldowns=button(settingsBody,"COOLDOWNS: ON") cooldowns.Position=UDim2.fromOffset(0,y+100) cooldowns.Size=UDim2.fromOffset(290,44)
+		cooldowns.Activated:Connect(function()
+			noCd=not noCd
+			cooldowns.Text="COOLDOWNS: "..(noCd and "OFF" or "ON")
+			self.Callbacks.Private("NoCooldowns",noCd)
+		end)
+		local damage=1
+		local damageBtn=button(settingsBody,"DAMAGE: 1.0x") damageBtn.Position=UDim2.fromOffset(0,y+152) damageBtn.Size=UDim2.fromOffset(290,44)
+		damageBtn.Activated:Connect(function()
+			damage=damage==1 and 1.5 or damage==1.5 and 2 or 1
+			damageBtn.Text=("DAMAGE: %.1fx"):format(damage)
+			self.Callbacks.Private("DamageMultiplier",damage)
+		end)
 	end
 end
 
