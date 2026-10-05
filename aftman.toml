@@ -1,0 +1,3 @@
+# Project toolchain managed by Aftman
+[tools]
+rojo = "rojo-rbx/rojo@7.6.0"
