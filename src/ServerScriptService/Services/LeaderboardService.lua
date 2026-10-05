@@ -23,13 +23,7 @@ end
 
 function Service:Refresh()
 	if not boardPart then return end
-	local g=boardPart:FindFirstChild("GlobalKillsGui")
-	local list=g and g:FindFirstChild("Frame") and g.Frame:FindFirstChild("List")
-	if not list then
-		local surface=boardPart:FindFirstChild("GlobalKillsGui")
-		if surface then list=surface:FindFirstChildWhichIsA("Frame") and surface:FindFirstChildWhichIsA("Frame"):FindFirstChild("List") end
-	end
-	if not list then return end
+\tlocal list=listLabel\n\tif not list or not list.Parent then return end
 
 	local ok,pages=pcall(function() return store:GetSortedAsync(false,10) end)
 	if not ok then list.Text="Rankings unavailable in this session." return end
