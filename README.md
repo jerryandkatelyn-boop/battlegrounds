@@ -1,64 +1,63 @@
-# Battlegrounds
+# Shatterbound
 
-Roblox Battlegrounds project using GitHub + Rojo.
+Anime-inspired 12-player arena PvP built with Roblox + Rojo.
 
-## Source of truth
+## Launch fighter
 
-GitHub is the source of truth for Rojo-managed scripts.
+**Kairo — The Impact Heir**
 
-Workflow:
+- 4-hit M1 chain with uppercut/downslam variants
+- Breakpoint Rush
+- Rising Comet
+- Faultline Crash
+- Heavenbreaker ultimate
+
+Players keep their own Roblox avatar. Fighters define combat kits rather than replacing avatar appearance.
+
+## Architecture
+
+GitHub is the source of truth for Rojo-managed code.
 
 ```text
-ChatGPT -> GitHub -> git pull on development PC -> Rojo -> Roblox Studio
+ChatGPT -> GitHub -> local git pull -> Rojo -> Roblox Studio
 ```
 
-Avoid editing Rojo-managed scripts directly in Roblox Studio unless you also copy those changes back into the repository.
+Server authority owns damage, cooldowns, stuns, blocking, ultimate state, progression and purchases. Clients own input, HUD, camera presentation and disposable visual effects.
 
-## Project layout
+## Repository
 
 ```text
-default.project.json
 src/
-  ReplicatedStorage/
-    Shared/
+  ReplicatedStorage/Shared/
+    GameConfig.lua
+    CharacterCatalog.lua
+    QuestConfig.lua
+    MonetizationConfig.lua
   ServerScriptService/
-  ServerStorage/
-  StarterGui/
-  StarterPlayer/
-    StarterPlayerScripts/
-    StarterCharacterScripts/
-scripts/
-  watch-github.ps1
+    Bootstrap.server.lua
+    Services/
+      ArenaService.lua
+      CombatService.lua
+      LeaderboardService.lua
+      MonetizationService.lua
+      ProfileService.lua
+  StarterPlayer/StarterPlayerScripts/
+    ClientMain.client.lua
+    Client/
+      HUD.lua
+      Effects.lua
 ```
 
-### File naming
+See `docs/ROBLOX_SETUP.md` before publishing.
 
-Rojo maps files to Roblox script types:
-
-- `Name.server.lua` -> Script
-- `Name.client.lua` -> LocalScript
-- `Name.lua` -> ModuleScript
-
-## Safety
-
-The Rojo project sets `$ignoreUnknownInstances` to `true` on mapped services so connecting Rojo does not remove unrelated instances that already exist in the Roblox place.
-
-## Starting Rojo
-
-From the repository folder:
+## Local development
 
 ```powershell
 rojo serve
 ```
 
-Then open the Rojo plugin in Roblox Studio and connect to the local server.
-
-## Pulling ChatGPT changes automatically
-
-Open a second PowerShell window in the repository and run:
+Optional automatic GitHub pull watcher:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\watch-github.ps1
 ```
-
-The watcher checks GitHub for changes and performs a fast-forward pull when the local working tree is clean. Rojo will then detect the changed files and sync them into Studio.
