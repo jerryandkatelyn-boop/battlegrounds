@@ -40,6 +40,7 @@ local function ultimate() Action:FireServer("Ultimate") end
 local function clearLock()
 	lockTarget=nil
 	if lockHighlight then lockHighlight:Destroy() lockHighlight=nil end
+	if currentHumanoid then currentHumanoid.AutoRotate=true end
 end
 
 local function chooseLock()
@@ -58,6 +59,7 @@ local function chooseLock()
 	end
 	if best then
 		lockTarget=best
+		if currentHumanoid then currentHumanoid.AutoRotate=false end
 		lockHighlight=Instance.new("Highlight") lockHighlight.Name="LockTarget" lockHighlight.FillTransparency=0.82 lockHighlight.OutlineColor=Color3.fromRGB(110,190,255) lockHighlight.FillColor=Color3.fromRGB(90,120,180) lockHighlight.Parent=best
 	end
 end
