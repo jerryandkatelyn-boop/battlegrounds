@@ -172,6 +172,7 @@ local function m1(player,requested)
 		variant="Downslam"
 	end
 	StateRemote:FireClient(player,"M1",combo,variant)
+	FXRemote:FireAllClients("Swing",player,combo,variant,root.Position)
 
 	task.delay(Config.M1Windup,function()
 		local c,_,r=living(player)
