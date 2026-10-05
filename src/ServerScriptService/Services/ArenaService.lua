@@ -63,8 +63,15 @@ function Service:Build()
 		neon(arena,Vector3.new(14.2,0.25,1),CFrame.new(pos+Vector3.new(0,7.1,0)))
 	end
 
-	for _,z in ipairs({-102,102}) do part(arena,"BoundaryWall",Vector3.new(230,18,4),CFrame.new(0,9,z),Color3.fromRGB(29,31,40),Enum.Material.Concrete,0) end
-	for _,x in ipairs({-102,102}) do part(arena,"BoundaryWall",Vector3.new(4,18,206),CFrame.new(x,9,0),Color3.fromRGB(29,31,40),Enum.Material.Concrete,0) end
+	-- South wall and side walls.
+	part(arena,"BoundaryWall",Vector3.new(230,18,4),CFrame.new(0,9,102),Color3.fromRGB(29,31,40),Enum.Material.Concrete,0)
+	for _,x in ipairs({-102,102}) do
+		part(arena,"BoundaryWall",Vector3.new(4,18,206),CFrame.new(x,9,0),Color3.fromRGB(29,31,40),Enum.Material.Concrete,0)
+	end
+
+	-- North wall is split so the protected pavilion has a clear route into combat.
+	part(arena,"BoundaryWall",Vector3.new(99,18,4),CFrame.new(-65.5,9,-102),Color3.fromRGB(29,31,40),Enum.Material.Concrete,0)
+	part(arena,"BoundaryWall",Vector3.new(99,18,4),CFrame.new(65.5,9,-102),Color3.fromRGB(29,31,40),Enum.Material.Concrete,0)
 
 	part(arena,"SafeDeck",Vector3.new(70,2,54),CFrame.new(0,1,Config.SafeZone.Center.Z),Color3.fromRGB(26,30,44),Enum.Material.Slate,0)
 	local safe=part(arena,"SafeZone",Config.SafeZone.Size,CFrame.new(Config.SafeZone.Center),Color3.fromRGB(80,170,255),Enum.Material.ForceField,0.94)
